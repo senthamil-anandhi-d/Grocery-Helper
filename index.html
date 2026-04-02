@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Helper | Compare & Save</title>
+    <meta name="description" content="A premium grocery purchase helper to compare product prices and calculate totals with ease.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="https://api.iconify.design/lucide:shopping-basket.svg?color=%233b82f6" type="image/svg+xml">
+</head>
+<body>
+    <div class="background-decor"></div>
+    
+    <header class="glass-header">
+        <div class="logo">
+            <span class="icon">🛒</span>
+            <h1>Grocery<span>Helper</span></h1>
+        </div>
+        <p class="subtitle">Smart Shopping, Real Savings</p>
+    </header>
+
+    <main>
+        <!-- Comparison Section -->
+        <section id="comparison" class="card glass">
+            <header class="section-header">
+                <h2>Price Comparison</h2>
+                <p>Find the best value for your money</p>
+            </header>
+            
+            <form id="compare-form" class="input-grid">
+                <div class="input-group full-width">
+                    <label for="p-name">Product Name</label>
+                    <input type="text" id="p-name" placeholder="e.g., Milk A" required>
+                </div>
+                <div class="input-group">
+                    <label for="p-price">Price (₹)</label>
+                    <input type="number" id="p-price" step="0.01" placeholder="0.00" required>
+                </div>
+                <div class="input-group">
+                    <label for="p-weight">Net Weight / Vol</label>
+                    <input type="number" id="p-weight" step="0.1" placeholder="500" required>
+                </div>
+                <div class="input-group">
+                    <label for="p-unit">Unit</label>
+                    <select id="p-unit">
+                        <option value="g">Grams (g)</option>
+                        <option value="kg">Kilograms (kg)</option>
+                        <option value="ml">Milliliters (ml)</option>
+                        <option value="l">Liters (l)</option>
+                        <option value="unit">Units (ea)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn primary-btn full-width">
+                    <span>Add to Comparison</span>
+                    <span class="btn-ripple"></span>
+                </button>
+            </form>
+
+            <div id="comparison-list-container" class="list-container">
+                <div class="list-header">
+                    <h3>Compared Items</h3>
+                    <button id="clear-comparison" class="text-btn">Clear All</button>
+                </div>
+                <ul id="comparison-list" class="item-list">
+                    <!-- Items will be injected here -->
+                    <div class="empty-state">
+                        <p>No items added yet. Let's compare!</p>
+                    </div>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Bill Calculator Section -->
+        <section id="bill-calculator" class="card glass">
+            <header class="section-header">
+                <h2>Quick Bill Calculator</h2>
+                <p>Create a bill with multiple products</p>
+            </header>
+            
+            <form id="bill-form" class="input-grid">
+                <div class="input-group full-width">
+                    <label for="b-name">Item Name</label>
+                    <input type="text" id="b-name" placeholder="e.g., Bread" required>
+                </div>
+                <div class="input-group">
+                    <label for="b-price">Price (₹)</label>
+                    <input type="number" id="b-price" step="0.01" placeholder="0.00" required>
+                </div>
+                <div class="input-group">
+                    <label for="b-qty">Qty</label>
+                    <input type="number" id="b-qty" step="1" value="1" min="1" required>
+                </div>
+                <button type="submit" class="btn primary-btn full-width">
+                    <span>Add to Bill</span>
+                </button>
+            </form>
+
+            <div id="bill-list-container" class="list-container">
+                <div class="list-header">
+                    <h3>Your Bill</h3>
+                    <button id="clear-bill" class="text-btn">Reset Bill</button>
+                </div>
+                <ul id="bill-list" class="item-list bill-item-list">
+                    <!-- Bill items injected here -->
+                </ul>
+                <div class="bill-footer">
+                    <div class="total-row">
+                        <span>Total Amount</span>
+                        <span id="bill-total" class="grand-total">₹ 0.00</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Grocery Helper. Premium Smart Shopping.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
