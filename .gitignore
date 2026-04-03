@@ -90,3 +90,6 @@ task.md
 *.jpg
 *.jpeg
 *.gif
+
+# Firebase Configuration
+firebase-config.js

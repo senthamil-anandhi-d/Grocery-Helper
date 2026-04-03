@@ -3,29 +3,21 @@ let comparisonItems = JSON.parse(localStorage.getItem('grocery_comparison')) || 
 let billItems = JSON.parse(localStorage.getItem('grocery_bill')) || [];
 let historyItems = JSON.parse(localStorage.getItem('grocery_history')) || [];
 
-// --- Firebase Configuration (User must fill this) ---
-const firebaseConfig = {
-    apiKey: "AIzaSyCgPhwywgR5BvDavLgbG1_YDbLR_OiOUow",
-    authDomain: "grocery-helper-8dc49.firebaseapp.com",
-    projectId: "grocery-helper-8dc49",
-    storageBucket: "grocery-helper-8dc49.firebasestorage.app",
-    messagingSenderId: "855546431994",
-    appId: "1:855546431994:web:4aa09ecfc3d604b399fc43",
-    measurementId: "G-2BKR1CTD0E"
-};
-
-// Initialize Firebase
+// --- Firebase Initialization ---
 let db = null;
 let auth = null;
 let isCloudEnabled = false;
 let currentUser = null;
 
-if (firebaseConfig.apiKey !== "YOUR_API_KEY") {
+// The 'firebaseConfig' object is now loaded from firebase-config.js (which is ignored by Git)
+if (typeof firebaseConfig !== 'undefined' && firebaseConfig.apiKey !== "YOUR_API_KEY") {
     firebase.initializeApp(firebaseConfig);
     db = firebase.firestore();
     auth = firebase.auth();
     isCloudEnabled = true;
-    console.log("Cloud Sync Enabled");
+    console.log("Cloud Sync Enabled (Private Config)");
+} else {
+    console.warn("Cloud Sync Disabled: firebase-config.js missing or unconfigured.");
 }
 
 // --- View Management ---
