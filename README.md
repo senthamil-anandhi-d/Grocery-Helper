@@ -15,7 +15,7 @@ Grocery Helper is a premium, mobile-compatible web application designed to help 
 
 No installation needed! Simply open `index.html` in any modern web browser.
 
-1. **Setup Firebase**: Follow the [Firebase Setup Guide](.gemini/antigravity/brain/1d153fbf-0459-4cba-aabb-fbf57cae64dd/firebase_setup_guide.md) to add your project keys to `app.js`.
+1. **Setup Firebase**: Follow the [Firebase Setup Guide](FIREBASE_SETUP.md) to add your project keys to `app.js`.
 2. **Comparison**: Enter product names, prices, and weights to see which brand offers the best value.
 3. **Billing**: Add items to your bill to track your total spending.
 4. **Cloud Sync**: Log in via the account icon (👤) to save your history permanently.
