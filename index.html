@@ -11,20 +11,101 @@
     <link rel="stylesheet" href="style.css">
     <link rel="icon" href="https://api.iconify.design/lucide:shopping-basket.svg?color=%233b82f6" type="image/svg+xml">
 </head>
-<body>
     <div class="background-decor"></div>
-    
-    <header class="glass-header">
-        <div class="logo">
-            <span class="icon">🛒</span>
-            <h1>Grocery<span>Helper</span></h1>
-        </div>
-        <p class="subtitle">Smart Shopping, Real Savings</p>
-    </header>
 
-    <main>
+    <nav class="nav-bar glass">
+        <div class="nav-content">
+            <button class="nav-btn active" data-view="dashboard">
+                <span class="icon">📊</span> <span>Dashboard</span>
+            </button>
+            <button class="nav-btn" data-view="comparison">
+                <span class="icon">⚖️</span> <span>Compare</span>
+            </button>
+            <button class="nav-btn" data-view="bill-calculator">
+                <span class="icon">📜</span> <span>Bill</span>
+            </button>
+            <div class="user-control">
+                <button id="auth-trigger" class="nav-btn profile-btn">👤</button>
+            </div>
+        </div>
+    </nav>
+    
+    <main class="container">
+        <!-- Auth Modal -->
+        <div id="auth-modal" class="modal hidden">
+            <div class="modal-overlay"></div>
+            <div class="modal-content glass">
+                <div class="modal-header">
+                    <h2 id="auth-title">Sign In</h2>
+                    <button id="close-auth" class="close-btn">×</button>
+                </div>
+                <div id="auth-loading" class="hidden">
+                    <p>Syncing with cloud...</p>
+                </div>
+                <form id="auth-form">
+                    <div class="input-group">
+                        <label>Email</label>
+                        <input type="email" id="auth-email" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="auth-password" required>
+                    </div>
+                    <button type="submit" id="auth-submit" class="btn primary-btn full-width">Sign In</button>
+                    <p class="auth-switch">Need an account? <a href="#" id="auth-toggle-link">Register</a></p>
+                </form>
+                <div id="user-profile" class="hidden">
+                    <p id="profile-email"></p>
+                    <button id="logout-btn" class="btn secondary-btn full-width">Logout</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="dashboard" class="view section-group">
+            <header class="glass-header">
+                <div class="logo">
+                    <span class="icon">🛒</span>
+                    <h1>Grocery<span>Helper</span></h1>
+                </div>
+                <p class="subtitle">Smart Shopping, Real Savings</p>
+            </header>
+            
+            <!-- History Section -->
+            <section id="history" class="card glass">
+                <header class="section-header">
+                    <h2>Your History</h2>
+                    <p>Archived comparisons and bills</p>
+                </header>
+                <div id="history-container" class="list-container">
+                    <div class="list-header">
+                        <h3>Recent Activity</h3>
+                        <div class="h-controls">
+                            <span id="cloud-status" class="cloud-status-tag">Cloud Disabled</span>
+                            <button id="clear-history" class="text-btn">Delete All</button>
+                        </div>
+                    </div>
+                    <ul id="history-list" class="item-list history-item-list">
+                        <!-- History items injected here -->
+                    </ul>
+                    <div id="firebase-setup-guide" class="setup-guide">
+                        <div class="guide-header">
+                            <h4>☁ Cloud History Setup</h4>
+                        </div>
+                        <p>To sync your history across devices:</p>
+                        <ol>
+                            <li>Create a project at <a href="https://console.firebase.google.com/" target="_blank">Firebase Console</a>.</li>
+                            <li>Add a **Web App** and copy the <code>firebaseConfig</code> values.</li>
+                            <li>Paste them into the top of <code>app.js</code>.</li>
+                            <li>In **Authentication**, enable "Email/Password".</li>
+                        </ol>
+                        <small>History will still save locally even without cloud setup.</small>
+                    </div>
+                </div>
+            </section>
+        </div>
+
         <!-- Comparison Section -->
-        <section id="comparison" class="card glass">
+        <section id="comparison" class="card glass view hidden">
             <header class="section-header">
                 <h2>Price Comparison</h2>
                 <p>Find the best value for your money</p>
@@ -50,6 +131,7 @@
                         <option value="kg">Kilograms (kg)</option>
                         <option value="ml">Milliliters (ml)</option>
                         <option value="l">Liters (l)</option>
+                        <option value="pcs">Pieces (pcs)</option>
                         <option value="unit">Units (ea)</option>
                     </select>
                 </div>
@@ -62,7 +144,10 @@
             <div id="comparison-list-container" class="list-container">
                 <div class="list-header">
                     <h3>Compared Items</h3>
-                    <button id="clear-comparison" class="text-btn">Clear All</button>
+                    <div class="header-actions">
+                        <button id="save-comparison" class="btn secondary-btn small-btn">Save to History</button>
+                        <button id="clear-comparison" class="text-btn">Clear All</button>
+                    </div>
                 </div>
                 <ul id="comparison-list" class="item-list">
                     <!-- Items will be injected here -->
@@ -74,7 +159,7 @@
         </section>
 
         <!-- Bill Calculator Section -->
-        <section id="bill-calculator" class="card glass">
+        <section id="bill-calculator" class="card glass view hidden">
             <header class="section-header">
                 <h2>Quick Bill Calculator</h2>
                 <p>Create a bill with multiple products</p>
@@ -101,7 +186,10 @@
             <div id="bill-list-container" class="list-container">
                 <div class="list-header">
                     <h3>Your Bill</h3>
-                    <button id="clear-bill" class="text-btn">Reset Bill</button>
+                    <div class="header-actions">
+                        <button id="save-bill" class="btn secondary-btn small-btn">Archive Bill</button>
+                        <button id="clear-bill" class="text-btn">Reset Bill</button>
+                    </div>
                 </div>
                 <ul id="bill-list" class="item-list bill-item-list">
                     <!-- Bill items injected here -->
@@ -114,12 +202,17 @@
                 </div>
             </div>
         </section>
+        
     </main>
 
     <footer>
         <p>&copy; 2026 Grocery Helper. Premium Smart Shopping.</p>
     </footer>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
