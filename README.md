@@ -5,17 +5,20 @@ Grocery Helper is a premium, mobile-compatible web application designed to help 
 ## ✨ Key Features
 
 - **Price Comparison (INR)**: Compare multiple products by net weight/volume to find the lowest price per unit (e.g., price per kg/L).
-- **"Best Value" Highlighting**: Automatically identifies and badges the item with the most value.
-- **Multi-Product Bill Calculator**: Add multiple items with custom names, prices, and quantities to generate a running total.
-- **Session Persistence**: Your list persists across page refreshes and is cleared once you close the tab (using `sessionStorage`).
-- **Premium UI**: Modern dark-mode design with glassmorphism and smooth micro-animations.
+- **"CHEAPEST DEAL" Branding**: Automatically identifies and badges the item with the most value.
+- **Personal User Accounts**: Secure login/register flow using **Firebase Authentication**.
+- **Cloud Sync (Firestore)**: Your history is saved to the cloud and synced across all your devices.
+- **Premium Navigation**: Sticky glassmorphism navigation bar with Dashboard (History), Comparison, and Bill views.
+- **Mobile Optimized**: Bottom-navigation layout for a native app-like experience on smartphones.
 
 ## 🚀 Getting Started
 
 No installation needed! Simply open `index.html` in any modern web browser.
 
-1. **Comparison**: Enter product names, prices, and weights to see which brand offers the best value.
-2. **Billing**: Add items you've selected to the bill to keep track of your estimated total spending.
+1. **Setup Firebase**: Follow the [Firebase Setup Guide](.gemini/antigravity/brain/1d153fbf-0459-4cba-aabb-fbf57cae64dd/firebase_setup_guide.md) to add your project keys to `app.js`.
+2. **Comparison**: Enter product names, prices, and weights to see which brand offers the best value.
+3. **Billing**: Add items to your bill to track your total spending.
+4. **Cloud Sync**: Log in via the account icon (👤) to save your history permanently.
 
 ## 📱 Mobile Friendly
 
@@ -25,7 +28,9 @@ The app is designed with a mobile-first approach, featuring large touch-friendly
 
 - **HTML5**: Semantic structure.
 - **CSS3**: Premium glassmorphism effects and HSL color system.
-- **Vanilla JavaScript**: Real-time logic for calculations and session persistence.
+- **Vanilla JavaScript**: Real-time logic and DOM manipulation.
+- **Firebase Auth**: Secure user session management.
+- **Cloud Firestore**: Real-time NoSQL database for cloud synchronization.
 - **Google Fonts**: "Outfit" typography for a sleek look.
 
 ---

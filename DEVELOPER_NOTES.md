@@ -4,7 +4,7 @@ This document provides technical insights into the architecture and design decis
 
 ## 🏗️ Architectural Overview
 
-The application is built as a **Single Page Application (SPA)** using purely vanilla technologies (HTML/CSS/JS) to ensure maximum performance and zero dependency overhead.
+The application is built as a **Cloud-Synced Single Page Application (SPA)** using purely vanilla technologies (HTML/CSS/JS) and a **Firebase Backend** for scalable user-specific data storage.
 
 ### Design System
 - **Glassmorphism**: Achieved using `backdrop-filter: blur()` and semi-transparent HSL colors.
@@ -12,9 +12,9 @@ The application is built as a **Single Page Application (SPA)** using purely van
 - **Responsive Grid**: Uses CSS Grid for the form layout and Flexbox for the item lists.
 
 ### State Management
-- **Local Arrays**: `comparisonItems` and `billItems` hold the current session state.
-- **Session Persistence**: Data is serialized to JSON and stored in `sessionStorage` on every mutation.
-- **Re-hydration**: On page load, the app checks `sessionStorage`, parses the JSON, and triggers a full UI re-render.
+- **Hybrid Storage**: The app uses `localStorage` for fast offline access and **Firebase Firestore** for cross-device cloud synchronization.
+- **Atomic Persistence**: Every mutation (adding to bill, clearing comparison) triggers a silent background sync if the user is authenticated.
+- **Auth Listener**: The `onAuthStateChanged` hook serves as the primary router for data hydration, fetching the user's personal history document upon successful login.
 
 ## 📂 File Structure
 
@@ -41,7 +41,8 @@ const ripple = btn.querySelector('.btn-ripple');
 
 ## 🚀 Future Enhancements
 
-- **Offline Support**: Migration to `localStorage` or Service Workers for PWA capabilities.
+- **PWA Capabilities**: Full offline service worker support for a truly mobile-native feel.
+- **Social Login**: Integrating Google/Facebook auth via Firebase.
 - **Export to Image/PDF**: Generating a shareable image of the bill.
 - **Barcode Scanning**: Integrating browser-based barcode scanning for product lookups.
 
